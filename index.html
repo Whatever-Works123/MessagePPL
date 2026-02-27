@@ -36,7 +36,6 @@
         <div class="flex-1 overflow-y-auto py-4">
             <h2 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 hidden md:block">Messages</h2>
             <ul class="space-y-1 px-2" id="chatList">
-                <!-- Jeff Chat Button -->
                 <li>
                     <button onclick="switchRoom('jeff')" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400" id="btn-room-jeff">
                         <div class="relative">
@@ -55,7 +54,6 @@
 
             <h2 class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2 hidden md:block">Apps</h2>
             <ul class="space-y-1 px-2">
-                <!-- NEW: Games Button -->
                 <li>
                     <button onclick="showGamesView()" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" id="btn-nav-games">
                         <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
@@ -71,30 +69,21 @@
         </div>
     </aside>
 
-    <!-- Main Content Area (Holds both Chat and Games) -->
+    <!-- Main Content Area -->
     <main class="flex-1 relative flex flex-col bg-gray-50 dark:bg-gray-900 h-full w-full">
         
         <!-- ==================== CHAT VIEW ==================== -->
         <div id="chatView" class="flex flex-col h-full w-full">
-            <!-- Chat Header -->
             <header class="h-16 px-4 md:px-6 border-b border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm flex items-center justify-between sticky top-0 z-10">
                 <div class="flex items-center gap-3">
                     <h2 class="font-bold text-lg" id="chatTitle">Jeff (AI)</h2>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button id="btnVideo" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors" title="Start Video Call">
-                        <i data-lucide="video" class="w-5 h-5"></i>
-                    </button>
-                </div>
             </header>
 
-            <!-- Messages Area -->
             <div id="messagesArea" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 flex flex-col pb-20 md:pb-6">
-                <div class="text-center text-gray-400 text-sm my-4">This is the start of your chat.</div>
                 <!-- Messages injected here -->
             </div>
 
-            <!-- Input Area -->
             <div class="p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 absolute md:relative bottom-0 left-0 right-0 z-10">
                 <form id="messageForm" class="flex items-end gap-2 max-w-4xl mx-auto">
                     <div class="flex-1 relative">
@@ -108,7 +97,7 @@
             </div>
         </div>
 
-        <!-- ==================== GAMES VIEW (Hidden by default) ==================== -->
+        <!-- ==================== GAMES VIEW ==================== -->
         <div id="gamesView" class="hidden flex-col h-full w-full bg-gray-100 dark:bg-gray-900 overflow-y-auto">
             <header class="h-16 px-4 md:px-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center sticky top-0 z-10">
                 <div class="flex items-center gap-3 text-purple-600 dark:text-purple-400">
@@ -121,18 +110,14 @@
                 <div class="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 flex flex-col items-center">
                     
                     <div class="w-full flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold flex items-center gap-2">
-                            🐍 Retro Snake
-                        </h3>
+                        <h3 class="text-xl font-bold flex items-center gap-2">🐍 Retro Snake</h3>
                         <div class="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-lg font-mono font-bold text-lg">
                             Score: <span id="snakeScore" class="text-blue-500">0</span>
                         </div>
                     </div>
 
-                    <!-- Game Canvas -->
                     <canvas id="gameCanvas" width="300" height="300" class="mb-6"></canvas>
 
-                    <!-- Controls / Start Button -->
                     <div id="gameOverlay" class="w-full flex flex-col items-center">
                         <button id="btnStartGame" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold text-lg transition-transform active:scale-95 shadow-md">
                             Start Game
@@ -140,7 +125,6 @@
                         <p class="text-xs text-gray-500 mt-3 text-center">Data is stored locally in memory. High scores vanish when you leave!</p>
                     </div>
 
-                    <!-- Mobile D-Pad (Visible mainly on small screens during gameplay) -->
                     <div id="mobileControls" class="w-full mt-4 hidden grid-cols-3 gap-2 max-w-[200px] mx-auto">
                         <div></div>
                         <button class="bg-gray-200 dark:bg-gray-700 p-4 rounded-xl active:bg-gray-300 flex justify-center" id="btnUp"><i data-lucide="arrow-up"></i></button>
@@ -149,52 +133,39 @@
                         <button class="bg-gray-200 dark:bg-gray-700 p-4 rounded-xl active:bg-gray-300 flex justify-center" id="btnDown"><i data-lucide="arrow-down"></i></button>
                         <button class="bg-gray-200 dark:bg-gray-700 p-4 rounded-xl active:bg-gray-300 flex justify-center" id="btnRight"><i data-lucide="arrow-right"></i></button>
                     </div>
-
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Video Call Modal (Hidden by default) -->
-    <div id="videoModal" class="hidden fixed inset-0 bg-black/90 z-50 flex-col items-center justify-center p-4">
-        <div class="relative w-full max-w-4xl aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
-            <!-- Remote Video (Big) -->
-            <video id="remoteVideo" autoplay playsinline class="w-full h-full object-cover"></video>
-            <!-- Local Video (Small Picture-in-Picture) -->
-            <div class="absolute bottom-4 right-4 w-32 md:w-48 aspect-video bg-black rounded-lg overflow-hidden border-2 border-gray-700 shadow-lg">
-                <video id="localVideo" autoplay playsinline muted class="w-full h-full object-cover transform scale-x-[-1]"></video>
-            </div>
-            <!-- Controls -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
-                <button id="btnEndCall" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-4 transition-transform active:scale-95 shadow-lg">
-                    <i data-lucide="phone-off" class="w-6 h-6"></i>
-                </button>
-            </div>
-            <div id="callStatus" class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full backdrop-blur-sm text-sm">
-                Waiting for connection...
-            </div>
-        </div>
-    </div>
-
     <!-- Logic & Firebase Setup -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, doc, setDoc, getDoc, updateDoc, deleteDoc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Initialize Icons
         lucide.createIcons();
 
-        // **API KEY INJECTION POINT** (Must remain exactly here with no comments on the line)
-        const apiKey = "";
+        // ==========================================
+        // GITHUB EXPORT SETTINGS
+        // ==========================================
+        
+        // 1. To make AI work on GitHub, put your Google Gemini API Key inside these quotes.
+        // In this testing sandbox, it injects automatically.
+        const apiKey = ""; 
+
+        // 2. To make Chat work on GitHub, replace 'null' with your Firebase Config object.
+        // Example: const myGitHubFirebaseConfig = { apiKey: "...", authDomain: "...", projectId: "..." };
+        const myGitHubFirebaseConfig = null; 
 
         // Application Globals
-        let db, auth;
+        let db = null;
+        let auth = null;
         let currentUser = null;
         let localUsername = "Anonymous_" + Math.floor(Math.random() * 1000);
         let currentRoomId = 'jeff'; 
         let unsubscribeSnapshot = null;
-        let appId = typeof __app_id !== 'undefined' ? __app_id : 'messegeppl-default';
+        let appId = typeof __app_id !== 'undefined' ? __app_id : 'messegeppl-external';
 
         // UI Elements
         const ui = {
@@ -213,11 +184,12 @@
             currentRoomId = roomId;
             ui.chatTitle.textContent = roomId === 'jeff' ? 'Jeff (AI)' : roomId;
             
-            // Highlight active button
+            // Fix: Stop the snake game so typing WASD in chat doesn't move the snake!
+            isGameRunning = false; 
+
             ui.btnRoomJeff.classList.add('bg-blue-50', 'dark:bg-blue-900/20');
             ui.btnNavGames.classList.remove('bg-purple-50', 'dark:bg-purple-900/20');
 
-            // Show Chat, Hide Games
             ui.gamesView.classList.add('hidden');
             ui.gamesView.classList.remove('flex');
             ui.chatView.classList.remove('hidden');
@@ -227,43 +199,51 @@
         };
 
         window.showGamesView = function() {
-            // Unhighlight chat buttons
             ui.btnRoomJeff.classList.remove('bg-blue-50', 'dark:bg-blue-900/20');
             ui.btnNavGames.classList.add('bg-purple-50', 'dark:bg-purple-900/20');
 
-            // Hide Chat, Show Games
             ui.chatView.classList.add('hidden');
             ui.chatView.classList.remove('flex');
             ui.gamesView.classList.remove('hidden');
             ui.gamesView.classList.add('flex');
-            
-            // Stop any chat listeners if we want, but keeping them alive is fine too.
         };
 
-        // --- Firebase Initialization (Required for chat) ---
+        // --- Firebase Initialization (GitHub Proofed) ---
         async function initFirebase() {
             try {
+                let firebaseConfigToUse = null;
+                let useInjectedToken = false;
+
+                // Check if we are in the Sandbox OR if the user provided their own config for GitHub
                 if (typeof __firebase_config !== 'undefined') {
-                    const firebaseConfig = JSON.parse(__firebase_config);
-                    const app = initializeApp(firebaseConfig);
-                    auth = getAuth(app);
-                    db = getFirestore(app);
-
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-
-                    onAuthStateChanged(auth, (user) => {
-                        currentUser = user;
-                        if (user && ui.chatView.classList.contains('flex')) {
-                            loadMessages();
-                        }
-                    });
+                    firebaseConfigToUse = JSON.parse(__firebase_config);
+                    useInjectedToken = true;
+                } else if (myGitHubFirebaseConfig !== null) {
+                    firebaseConfigToUse = myGitHubFirebaseConfig;
                 } else {
-                    console.log("No Firebase config detected. Running in local mode.");
+                    console.warn("No Firebase config found. Chat is disabled on GitHub until configured.");
+                    ui.messagesArea.innerHTML = '<div class="text-center text-red-500 text-sm my-10 bg-red-100 dark:bg-red-900/20 p-4 rounded-xl mx-4"><b>Database not connected.</b><br>If you are hosting this on GitHub, please add your Firebase config to the code.</div>';
+                    return;
                 }
+
+                const app = initializeApp(firebaseConfigToUse);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Authenticate
+                if (useInjectedToken && typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    currentUser = user;
+                    if (user && ui.chatView.classList.contains('flex')) {
+                        loadMessages();
+                    }
+                });
+
             } catch (error) {
                 console.error("Firebase Init Error:", error);
             }
@@ -272,22 +252,20 @@
 
         // --- Chat Logic ---
         function loadMessages() {
-            if (!db || !currentUser) return;
+            if (!db || !currentUser) return; // Prevent crashing if DB isn't configured on GitHub
+            
             if (unsubscribeSnapshot) unsubscribeSnapshot();
 
             ui.messagesArea.innerHTML = '<div class="text-center text-gray-400 text-sm my-4">Loading messages...</div>';
 
             const roomRef = collection(db, 'artifacts', appId, 'public', 'data', `chat_${currentRoomId}`);
             
-            // Note: In standard Firestore, we'd use orderBy and limit. 
-            // Following simple query rules, we grab all and sort locally if complex.
             unsubscribeSnapshot = onSnapshot(roomRef, (snapshot) => {
                 ui.messagesArea.innerHTML = '';
                 
                 let msgs = [];
                 snapshot.forEach(doc => msgs.push({ id: doc.id, ...doc.data() }));
                 
-                // Sort by timestamp locally to ensure rule compliance
                 msgs.sort((a, b) => {
                     const tA = a.timestamp?.toMillis() || 0;
                     const tB = b.timestamp?.toMillis() || 0;
@@ -317,7 +295,7 @@
                 ui.messagesArea.scrollTop = ui.messagesArea.scrollHeight;
             }, (error) => {
                 console.error("Snapshot error:", error);
-                ui.messagesArea.innerHTML = `<div class="text-center text-red-400 text-sm my-4">Error loading messages.</div>`;
+                ui.messagesArea.innerHTML = `<div class="text-center text-red-400 text-sm my-4">Error loading messages. Check database permissions.</div>`;
             });
         }
 
@@ -330,7 +308,6 @@
             const roomRef = collection(db, 'artifacts', appId, 'public', 'data', `chat_${currentRoomId}`);
             
             try {
-                // Send User Message
                 await addDoc(roomRef, {
                     text: text,
                     uid: currentUser.uid,
@@ -338,12 +315,16 @@
                     timestamp: serverTimestamp()
                 });
 
-                // Jeff AI replying via Gemini
                 if (currentRoomId === 'jeff') {
+                    if (!apiKey) {
+                        console.warn("No API key provided. Jeff cannot respond.");
+                        return; // Fail gracefully on GitHub if key is missing
+                    }
+
                     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                     const payload = {
                         contents: [{ parts: [{ text: text }] }],
-                        systemInstruction: { parts: [{ text: "You are Jeff, a friendly, helpful, and concise chat testing bot on an app called 'messegeppl'. Keep your responses safe, positive, and conversational." }] }
+                        systemInstruction: { parts: [{ text: "You are Jeff, a friendly chat testing bot on 'messegeppl'." }] }
                     };
 
                     const response = await fetch(url, {
@@ -370,37 +351,32 @@
 
 
         // ==========================================
-        //         SNAKE GAME LOGIC (Local Memory Only)
+        // SNAKE GAME LOGIC
         // ==========================================
         
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const scoreElement = document.getElementById('snakeScore');
         const btnStartGame = document.getElementById('btnStartGame');
-        const gameOverlay = document.getElementById('gameOverlay');
         const mobileControls = document.getElementById('mobileControls');
 
-        // Game Constants
         const gridSize = 15;
         const tileCount = canvas.width / gridSize;
         
-        // Game State (Stored ONLY in RAM)
+        // Expose globally so view switcher can turn it off
+        window.isGameRunning = false; 
+
         let snake = [];
         let food = { x: 0, y: 0 };
         let dx = 0;
         let dy = 0;
         let score = 0;
         let gameLoopTimeout;
-        let isGameRunning = false;
 
         function resetGame() {
-            snake = [
-                { x: 10, y: 10 },
-                { x: 10, y: 11 },
-                { x: 10, y: 12 }
-            ];
+            snake = [ { x: 10, y: 10 }, { x: 10, y: 11 }, { x: 10, y: 12 } ];
             dx = 0;
-            dy = -1; // Start moving up
+            dy = -1; 
             score = 0;
             scoreElement.innerText = score;
             spawnFood();
@@ -418,7 +394,6 @@
                 x: Math.floor(Math.random() * tileCount),
                 y: Math.floor(Math.random() * tileCount)
             };
-            // Prevent food spawning on snake
             for(let part of snake) {
                 if(part.x === food.x && part.y === food.y) spawnFood();
             }
@@ -444,32 +419,26 @@
 
             drawGame();
             
-            // Speed up slightly as score increases, cap at 50ms
             let speed = Math.max(50, 150 - (score * 2));
             gameLoopTimeout = setTimeout(gameLoop, speed);
         }
 
         function updateSnake() {
-            // Calculate new head position
             const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-            snake.unshift(head); // Add new head
-
-            // Check if ate food
+            snake.unshift(head);
             if (head.x === food.x && head.y === food.y) {
                 score += 10;
                 scoreElement.innerText = score;
                 spawnFood();
             } else {
-                snake.pop(); // Remove tail if no food eaten
+                snake.pop(); 
             }
         }
 
         function drawGame() {
-            // Clear Canvas
-            ctx.fillStyle = "#1e293b"; // Dark slate background
+            ctx.fillStyle = "#1e293b"; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw Grid Lines (optional, looks cool)
             ctx.strokeStyle = "#334155";
             ctx.lineWidth = 0.5;
             for(let i=0; i<=canvas.width; i+=gridSize) {
@@ -477,24 +446,20 @@
                 ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
             }
 
-            // Draw Food
-            ctx.fillStyle = "#ef4444"; // Red
+            ctx.fillStyle = "#ef4444";
             ctx.beginPath();
             ctx.arc((food.x * gridSize) + gridSize/2, (food.y * gridSize) + gridSize/2, gridSize/2 - 1, 0, Math.PI * 2);
             ctx.fill();
 
-            // Draw Snake
             snake.forEach((part, index) => {
-                ctx.fillStyle = index === 0 ? "#10b981" : "#34d399"; // Head is darker green
+                ctx.fillStyle = index === 0 ? "#10b981" : "#34d399";
                 ctx.fillRect(part.x * gridSize + 1, part.y * gridSize + 1, gridSize - 2, gridSize - 2);
             });
         }
 
         function checkGameOver() {
             const head = snake[0];
-            // Wall collision
             if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) return true;
-            // Self collision (start checking from index 1)
             for (let i = 1; i < snake.length; i++) {
                 if (head.x === snake[i].x && head.y === snake[i].y) return true;
             }
@@ -503,31 +468,31 @@
 
         // --- Controls ---
         function changeDirection(newDx, newDy) {
-            // Prevent 180-degree turns
             if (dx === 0 && newDx === 0) return; 
             if (dy === 0 && newDy === 0) return;
             dx = newDx;
             dy = newDy;
         }
 
-        // Keyboard Controls
         window.addEventListener('keydown', (e) => {
+            // FIX: If the games view is hidden, completely ignore keyboard presses so we can type in chat normally!
+            if (ui.gamesView.classList.contains('hidden')) return;
+
             if(!isGameRunning && ui.gamesView.classList.contains('flex')) {
-                // Press space to start if on games view
                 if(e.code === 'Space') { e.preventDefault(); resetGame(); }
                 return;
             }
             if(!isGameRunning) return;
 
-            switch(e.key) {
-                case 'ArrowUp': case 'w': e.preventDefault(); changeDirection(0, -1); break;
-                case 'ArrowDown': case 's': e.preventDefault(); changeDirection(0, 1); break;
-                case 'ArrowLeft': case 'a': e.preventDefault(); changeDirection(-1, 0); break;
-                case 'ArrowRight': case 'd': e.preventDefault(); changeDirection(1, 0); break;
+            switch(e.key.toLowerCase()) {
+                case 'arrowup': case 'w': e.preventDefault(); changeDirection(0, -1); break;
+                case 'arrowdown': case 's': e.preventDefault(); changeDirection(0, 1); break;
+                case 'arrowleft': case 'a': e.preventDefault(); changeDirection(-1, 0); break;
+                case 'arrowright': case 'd': e.preventDefault(); changeDirection(1, 0); break;
             }
         });
 
-        // Mobile Controls Listeners
+        // Mobile Controls
         document.getElementById('btnUp').addEventListener('pointerdown', (e) => { e.preventDefault(); changeDirection(0, -1); });
         document.getElementById('btnDown').addEventListener('pointerdown', (e) => { e.preventDefault(); changeDirection(0, 1); });
         document.getElementById('btnLeft').addEventListener('pointerdown', (e) => { e.preventDefault(); changeDirection(-1, 0); });
