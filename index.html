@@ -191,6 +191,8 @@
 
         lucide.createIcons();
 
+        const apiKey = "";
+
         // Globals
         let db, auth;
         let currentUser = null;
@@ -198,7 +200,6 @@
         let currentRoomId = null; 
         let unsubscribeSnapshot = null;
         let callUnsubscribe = null;
-        const apiKey = ""; // Moved here so the environment can inject the key!
         
         // Messenger specific: Load saved chats from storage (starts with Jeff for testing)
         let myChats = JSON.parse(localStorage.getItem('messegeppl_chats')) || ['jeff'];
@@ -526,7 +527,7 @@
                     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                     
                     const payload = {
-                        contents: [{ role: "user", parts: [{ text: text }] }],
+                        contents: [{ parts: [{ text: text }] }],
                         systemInstruction: { parts: [{ text: "You are Jeff, a friendly, helpful, and concise chat testing bot on an app called 'messegeppl'. Keep your responses safe, positive, and conversational like a text message." }] }
                     };
 
@@ -585,7 +586,7 @@
 
         function listenForVideoCall(roomId) {
             if(callUnsubscribe) callUnsubscribe();
-            const callDocRef = doc(db, 'artifacts', appId, 'public', 'data', `calls_${roomId}`);
+            const callDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'calls', roomId);
             
             callUnsubscribe = onSnapshot(callDocRef, (docSnap) => {
                 // If a call exists in the room, make the button pulse green to indicate "Join Call"
@@ -610,7 +611,7 @@
                 return;
             }
 
-            const callDocRef = doc(db, 'artifacts', appId, 'public', 'data', `calls_${currentRoomId}`);
+            const callDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'calls', currentRoomId);
             const callDoc = await getDoc(callDocRef);
 
             // If someone else already started a call, join it. Otherwise, start a new one.
@@ -746,7 +747,7 @@
             
             if(db && currentRoomId) {
                 // Remove call signaling data from Firebase to hang up for everyone
-                const callDocRef = doc(db, 'artifacts', appId, 'public', 'data', `calls_${currentRoomId}`);
+                const callDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'calls', currentRoomId);
                 await deleteDoc(callDocRef).catch(e => console.log(e));
             }
         }
