@@ -1,50 +1,50 @@
 diff --git a/script.js b/script.js
-index 151e64fa84cb4f7e7188c05f72c14d12b5eb64c1..67d5262c142ff9c59066caba91d5062fbf430f6d 100644
---- a/script.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..67d5262c142ff9c59066caba91d5062fbf430f6d
+--- /dev/null
 +++ b/script.js
-@@ -3,99 +3,116 @@ const chats = [
-     id: "math-squad",
-     name: "Math Squad",
-     subtitle: "Algebra review at 7?",
-     members: "You, Aria, Cam, Zane",
-     messages: [
-       { from: "other", text: "Anyone understand #14 from the worksheet?", time: "3:42 PM" },
-       { from: "self", text: "Yeah, isolate x first and then plug into the second equation.", time: "3:44 PM" },
-       { from: "other", text: "Legend. I owe you cafeteria fries tomorrow.", time: "3:45 PM" }
-     ]
-   },
-   {
-     id: "history-project",
-     name: "History Project",
-     subtitle: "Slides are almost done",
-     members: "You, Nia, Mateo",
-     messages: [
-       { from: "other", text: "I added the civil rights timeline section.", time: "2:11 PM" },
-       { from: "self", text: "Looks good. I'll do citations + images.", time: "2:19 PM" }
-     ]
-   },
-   {
-     id: "homeroom",
-     name: "Homeroom 2B",
-     subtitle: "Quiz moved to Friday",
-     members: "Class channel",
--    messages: [
--      { from: "other", text: "Reminder: bring calculators tomorrow.", time: "8:06 AM" }
--    ]
+@@ -0,0 +1,118 @@
++const chats = [
++  {
++    id: "math-squad",
++    name: "Math Squad",
++    subtitle: "Algebra review at 7?",
++    members: "You, Aria, Cam, Zane",
++    messages: [
++      { from: "other", text: "Anyone understand #14 from the worksheet?", time: "3:42 PM" },
++      { from: "self", text: "Yeah, isolate x first and then plug into the second equation.", time: "3:44 PM" },
++      { from: "other", text: "Legend. I owe you cafeteria fries tomorrow.", time: "3:45 PM" }
++    ]
++  },
++  {
++    id: "history-project",
++    name: "History Project",
++    subtitle: "Slides are almost done",
++    members: "You, Nia, Mateo",
++    messages: [
++      { from: "other", text: "I added the civil rights timeline section.", time: "2:11 PM" },
++      { from: "self", text: "Looks good. I'll do citations + images.", time: "2:19 PM" }
++    ]
++  },
++  {
++    id: "homeroom",
++    name: "Homeroom 2B",
++    subtitle: "Quiz moved to Friday",
++    members: "Class channel",
 +    messages: [{ from: "other", text: "Reminder: bring calculators tomorrow.", time: "8:06 AM" }]
-   }
- ];
- 
- const chatList = document.getElementById("chatList");
- const messageThread = document.getElementById("messageThread");
- const activeChatName = document.getElementById("activeChatName");
- const activeChatMeta = document.getElementById("activeChatMeta");
++  }
++];
++
++const chatList = document.getElementById("chatList");
++const messageThread = document.getElementById("messageThread");
++const activeChatName = document.getElementById("activeChatName");
++const activeChatMeta = document.getElementById("activeChatMeta");
 +const activeAvatar = document.getElementById("activeAvatar");
- const composer = document.getElementById("composer");
- const messageInput = document.getElementById("messageInput");
- 
- let activeChatId = chats[0].id;
- 
++const composer = document.getElementById("composer");
++const messageInput = document.getElementById("messageInput");
++
++let activeChatId = chats[0].id;
++
 +function initials(name) {
 +  return name
 +    .split(" ")
@@ -54,13 +54,12 @@ index 151e64fa84cb4f7e7188c05f72c14d12b5eb64c1..67d5262c142ff9c59066caba91d5062f
 +    .toUpperCase();
 +}
 +
- function renderChatList() {
-   chatList.innerHTML = "";
- 
-   chats.forEach((chat) => {
-     const li = document.createElement("li");
-     li.className = `chat-item${chat.id === activeChatId ? " active" : ""}`;
--    li.innerHTML = `<h3>${chat.name}</h3><p>${chat.subtitle}</p>`;
++function renderChatList() {
++  chatList.innerHTML = "";
++
++  chats.forEach((chat) => {
++    const li = document.createElement("li");
++    li.className = `chat-item${chat.id === activeChatId ? " active" : ""}`;
 +    li.innerHTML = `
 +      <div class="avatar" aria-hidden="true">${initials(chat.name)}</div>
 +      <div class="chat-text">
@@ -69,57 +68,57 @@ index 151e64fa84cb4f7e7188c05f72c14d12b5eb64c1..67d5262c142ff9c59066caba91d5062f
 +      </div>
 +    `;
 +
-     li.addEventListener("click", () => {
-       activeChatId = chat.id;
-       render();
-     });
++    li.addEventListener("click", () => {
++      activeChatId = chat.id;
++      render();
++    });
 +
-     chatList.appendChild(li);
-   });
- }
- 
- function renderMessages(activeChat) {
-   messageThread.innerHTML = "";
- 
-   activeChat.messages.forEach((entry) => {
-     const article = document.createElement("article");
-     article.className = `message ${entry.from}`;
-     article.innerHTML = `${entry.text}<small>${entry.time}</small>`;
-     messageThread.appendChild(article);
-   });
- 
-   messageThread.scrollTop = messageThread.scrollHeight;
- }
- 
- function render() {
-   const activeChat = chats.find((chat) => chat.id === activeChatId);
-   if (!activeChat) return;
- 
-   activeChatName.textContent = activeChat.name;
-   activeChatMeta.textContent = activeChat.members;
++    chatList.appendChild(li);
++  });
++}
++
++function renderMessages(activeChat) {
++  messageThread.innerHTML = "";
++
++  activeChat.messages.forEach((entry) => {
++    const article = document.createElement("article");
++    article.className = `message ${entry.from}`;
++    article.innerHTML = `${entry.text}<small>${entry.time}</small>`;
++    messageThread.appendChild(article);
++  });
++
++  messageThread.scrollTop = messageThread.scrollHeight;
++}
++
++function render() {
++  const activeChat = chats.find((chat) => chat.id === activeChatId);
++  if (!activeChat) return;
++
++  activeChatName.textContent = activeChat.name;
++  activeChatMeta.textContent = activeChat.members;
 +  activeAvatar.textContent = initials(activeChat.name);
- 
-   renderChatList();
-   renderMessages(activeChat);
- }
- 
- composer.addEventListener("submit", (event) => {
-   event.preventDefault();
-   const value = messageInput.value.trim();
-   if (!value) return;
- 
-   const activeChat = chats.find((chat) => chat.id === activeChatId);
-   if (!activeChat) return;
- 
-   activeChat.messages.push({
-     from: "self",
-     text: value,
-     time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
-   });
- 
-   activeChat.subtitle = value;
-   messageInput.value = "";
-   render();
- });
- 
- render();
++
++  renderChatList();
++  renderMessages(activeChat);
++}
++
++composer.addEventListener("submit", (event) => {
++  event.preventDefault();
++  const value = messageInput.value.trim();
++  if (!value) return;
++
++  const activeChat = chats.find((chat) => chat.id === activeChatId);
++  if (!activeChat) return;
++
++  activeChat.messages.push({
++    from: "self",
++    text: value,
++    time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
++  });
++
++  activeChat.subtitle = value;
++  messageInput.value = "";
++  render();
++});
++
++render();
