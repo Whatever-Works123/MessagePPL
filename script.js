@@ -54,13 +54,23 @@ function renderChatList() {
   chats.forEach((chat) => {
     const li = document.createElement("li");
     li.className = `chat-item${chat.id === activeChatId ? " active" : ""}`;
-    li.innerHTML = `
-      <div class="avatar" aria-hidden="true">${initials(chat.name)}</div>
-      <div class="chat-text">
-        <h3>${chat.name}</h3>
-        <p>${chat.subtitle}</p>
-      </div>
-    `;
+
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+    avatar.setAttribute("aria-hidden", "true");
+    avatar.textContent = initials(chat.name);
+
+    const chatText = document.createElement("div");
+    chatText.className = "chat-text";
+
+    const title = document.createElement("h3");
+    title.textContent = chat.name;
+
+    const subtitle = document.createElement("p");
+    subtitle.textContent = chat.subtitle;
+
+    chatText.append(title, subtitle);
+    li.append(avatar, chatText);
 
     li.addEventListener("click", () => {
       activeChatId = chat.id;
@@ -77,7 +87,14 @@ function renderMessages(activeChat) {
   activeChat.messages.forEach((entry) => {
     const article = document.createElement("article");
     article.className = `message ${entry.from}`;
-    article.innerHTML = `${entry.text}<small>${entry.time}</small>`;
+
+    const body = document.createElement("p");
+    body.textContent = entry.text;
+
+    const time = document.createElement("small");
+    time.textContent = entry.time;
+
+    article.append(body, time);
     messageThread.appendChild(article);
   });
 

@@ -221,6 +221,10 @@ body {
   background: var(--incoming);
 }
 
+
+.message p {
+  margin: 0;
+}
 .message small {
   display: block;
   font-size: 0.72rem;
